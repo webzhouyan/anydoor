@@ -1,0 +1,23 @@
+{
+  "name": "anydoor",
+  "version": "1.0.0",
+  "description": "Mini  NodeJs Static Web Serve ## 使用方法",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webzhouyan/anydoor.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/webzhouyan/anydoor/issues"
+  },
+  "homepage": "https://github.com/webzhouyan/anydoor#readme",
+  "dependencies": {
+    "chalk": "^2.3.0",
+    "handlebars": "^4.0.11"
+  }
+}
