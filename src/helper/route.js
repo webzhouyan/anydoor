@@ -7,6 +7,8 @@ const readdir = promisify(fs.readdir);
 const config  =  require('../config/defaultConfig');
 const mimie = require('../helper/mime');
 const compress = require('./compress')
+const isFresh = require('./cache')
+
 
 const tplPath = path.join(__dirname,'../template/dir.tpl');
 const source = fs.readFileSync(tplPath);
@@ -19,6 +21,15 @@ module.exports = async function (req,res,filePath) {
         if(stats.isFile()) {
             res.statusCode = 200;
             res.setHeader('Content-Type',mimie(filePath));
+
+            //判断是否缓存
+            if(isFresh(stats,req,res)) {
+                res.statusCode = 304;
+                res.end();
+                return;
+            }
+
+
             let rs = fs.createReadStream(filePath);
             if(filePath.match(config.compress)) {
                 rs = compress(rs,req,res);
@@ -40,6 +51,6 @@ module.exports = async function (req,res,filePath) {
     } catch (err) {
         res.statusCode = 404;
         res.setHeader('Content-Type','text/plain');
-        res.end(`${filePath} is not exist`);
+        res.end(`${filePath} is not exist ++++${err}`);
     }
 }
